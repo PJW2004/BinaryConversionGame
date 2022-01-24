@@ -1,12 +1,16 @@
 class Conversion:
 
-    def Decimal_To_Binary(self, Decimal):
-        Binary = bin(Decimal).replace("0b", "")
-        return Binary
+    def Decimal_To_Binary(self, Decimal, User_Answer=0):
+        if User_Answer == 2:
+            return int(Decimal, 2)
+
+        else:
+            Binary = bin(Decimal).replace("0b", "")
+            return Binary
 
     def test(self, Answer=''):
         User_Answer = input(">>")
-        if Answer == User_Answer:
+        if f'{Answer}' == User_Answer:
             print("정답\n")
         else:
             self.test(Answer)
