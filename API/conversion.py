@@ -1,7 +1,7 @@
 class Conversion:
 
     def Decimal_To_Binary(self, Decimal, User_Answer=0):
-        if User_Answer == 2:
+        if User_Answer == 3:
             return int(Decimal, 2)
 
         else:
