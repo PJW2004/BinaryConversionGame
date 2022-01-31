@@ -1,11 +1,19 @@
 from API.create import Create
 from API.conversion import Conversion
 from API.timer import Timer
+from DB.Datainput import MAIN_Start
+from DB.UserConnecting import MAIN_CONNECT
 
 
 timer = Timer()
 cre = Create()
 con = Conversion()
+db = MAIN_Start()
+
+
+def DB(User="", pwd=""):
+    userdata = MAIN_CONNECT(UserName=User, Password=pwd)
+    return userdata
 
 
 def RUN():
@@ -28,4 +36,9 @@ def RUN():
 
 
 if __name__ == '__main__':
-    RUN()
+    UserName = input("UserName : ")
+    Password = input("Password : ")
+    user = DB(User=UserName, pwd=Password)
+
+    if user.State == "MAIN CONNECTING":
+        RUN()
