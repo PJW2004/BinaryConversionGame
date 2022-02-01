@@ -5,17 +5,15 @@ from DB.Datainput import MAIN_Start
 from DB.UserConnecting import MAIN_CONNECT
 
 
+# Instance
 timer = Timer()
 cre = Create()
 con = Conversion()
 db = MAIN_Start()
+user = MAIN_CONNECT()
 
 
-def DB(User="", pwd=""):
-    userdata = MAIN_CONNECT(UserName=User, Password=pwd)
-    return userdata
-
-
+# 실제 동작 페이지
 def RUN():
     try:
         Answer = int(input("단계를 1~5중 선택 하시오. [종료를 원할시 아무 키나 누르면 됩니다.] \n>>"))
@@ -35,10 +33,27 @@ def RUN():
         print("Program 을 종료 합니다.")
 
 
-if __name__ == '__main__':
+# user connect 과정
+def CONNECT():
     UserName = input("UserName : ")
     Password = input("Password : ")
-    user = DB(User=UserName, pwd=Password)
+    user.CONNECT(User=UserName, pwd=Password)
 
     if user.State == "MAIN CONNECTING":
         RUN()
+
+    elif user.State == "Sign Up":
+        UserAnswer = db.SignUPAnswer()
+        if UserAnswer == "Y":
+            db.SignUp()
+            CONNECT()
+        else:
+            CONNECT()
+
+    else:
+        print("SORRY INFORMATION DOSE NOT EXIST")
+        CONNECT()
+
+
+if __name__ == '__main__':
+    CONNECT()
