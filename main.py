@@ -35,25 +35,35 @@ def RUN():
 
 # user connect 과정
 def CONNECT():
-    UserName = input("UserName : ")
-    Password = input("Password : ")
-    user.CONNECT(User=UserName, pwd=Password)
+    UserName = input("[IF YOU WANT DELETE YOUR USERID PLEASE WRITE KEY 'A']\nUserName : ")
 
-    if user.State == "MAIN CONNECTING":
-        RUN()
+    # USERID 삭제
+    if UserName == "A":
+        db.withdrawal()
 
-    elif user.State == "Sign Up":
-        UserAnswer = db.SignUPAnswer()
-        if UserAnswer == "Y":
-            db.SignUp()
-            CONNECT()
-        else:
-            CONNECT()
-
+    # USERID 입력창
     else:
-        print("SORRY INFORMATION DOSE NOT EXIST")
-        CONNECT()
+        Password = input("Password : ")
+
+        user.CONNECT(User=UserName, pwd=Password)
+
+        if user.State == "MAIN CONNECTING":
+            RUN()
+
+        # 회원 가입
+        elif user.State == "Sign Up":
+            UserAnswer = db.SignUPAnswer()
+            if UserAnswer == "Y":
+                db.SignUp()
+                CONNECT()
+            else:
+                CONNECT()
+
+        else:
+            print("SORRY INFORMATION DOSE NOT EXIST\n")
+            CONNECT()
 
 
+# 동작 하는 곳
 if __name__ == '__main__':
     CONNECT()
