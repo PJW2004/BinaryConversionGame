@@ -20,18 +20,23 @@ class MAIN_Start:
             self.SignUPAnswer()
 
     def SignUp(self):
-        UserName = input("PLEASE WRITE YOUR USERNAME\n>>")
-        password = input("PLEASE WRITE YOUR PASSWORD\n>>")
+        UserName = input("PLEASE WRITE YOUR USERNAME : ")
 
-        with open("./DB/USER_DB", "a") as Userdata:
-            Userdata.write(f"{UserName}:{password},\n")
-            Userdata.close()
+        if UserName == "admin":
+            print("[경고] 'admin' 은 만들 수 없습니다.")
+
+        else:
+            password = input("PLEASE WRITE YOUR PASSWORD : ")
+
+            with open("./DB/USER_DB", "a") as Userdata:
+                Userdata.write(f"{UserName}:{password},\n")
+                Userdata.close()
 
     def withdrawal(self):
         UserName = input("PLEASE WRITE YOUR WANT DELETE DELETE USERNAME\n>>")
 
         if UserName == "admin":
-            print("[경고] 'admin' 은 지울 수 없습 니다.")
+            print("[경고] 'admin' 은 지울 수 없습니다.")
             print("END THE PROGRAM")
 
         else:
