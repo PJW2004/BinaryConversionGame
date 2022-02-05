@@ -9,6 +9,20 @@ class MAIN_Start:
                 Userdata.write(f"admin:admin123,\n")
                 Userdata.close()
 
+        self.CreateDB(DBNAME="LOG")
+        self.CreateDB(DBNAME="USER_LOG")
+
+    def CreateDB(self, DBNAME=""):
+        if not os.path.exists(f"./DB/{DBNAME}"):
+            with open(f"./DB/{DBNAME}", "w") as LOG:
+                LOG.write("")
+                LOG.close()
+
+    def InputLOG(self, DBNAME="", HEAD="", LOG=""):
+        with open(f"./DB/{DBNAME}", "a") as DB:
+            DB.write(f"{HEAD}:{LOG},\n")
+            DB.close()
+
     def SignUPAnswer(self):
         UserAnswer = input("Do you Want to Sign Up?\n>>")
         if UserAnswer == "YES" or UserAnswer == "Y":

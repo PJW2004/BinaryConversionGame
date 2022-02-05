@@ -14,7 +14,7 @@ user = MAIN_CONNECT()
 
 
 # 실제 동작 페이지
-def RUN():
+def RUN(UserName=""):
     try:
         Answer = int(input("단계를 1~5중 선택 하시오. [종료를 원할시 아무 키나 누르면 됩니다.] \n>>"))
         timer.CountDown()
@@ -26,8 +26,9 @@ def RUN():
         end = timer.__End__()
         count = timer.Count(__Start__=start, __End__=end)
         print(f"종료\n모든 10진수를 변환 하였 습니다.\n총 걸린 시간 : {count}")
+        db.InputLOG(DBNAME="LOG", HEAD=f"{UserName}", LOG=f"[time={count}]")
 
-        RUN()
+        RUN(UserName=UserName)
 
     except ValueError:
         print("Program 을 종료 합니다.")
@@ -48,7 +49,7 @@ def CONNECT():
         user.CONNECT(User=UserName, pwd=Password)
 
         if user.State == "MAIN CONNECTING":
-            RUN()
+            RUN(UserName=UserName)
 
         # 회원 가입
         elif user.State == "Sign Up":
