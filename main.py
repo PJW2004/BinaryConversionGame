@@ -26,7 +26,7 @@ def RUN(UserName=""):
         end = timer.__End__()
         count = timer.Count(__Start__=start, __End__=end)
         print(f"종료\n모든 10진수를 변환 하였 습니다.\n총 걸린 시간 : {count}")
-        db.InputLOG(DBNAME="LOG", HEAD=f"{UserName}", LOG=f"[time={count}]")
+        db.InputLOG(DBNAME="LOG", HEAD=f"[{Answer}]{UserName}", LOG=f"[time={count}]")
 
         RUN(UserName=UserName)
 
