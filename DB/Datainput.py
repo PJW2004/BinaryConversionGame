@@ -10,8 +10,9 @@ class MAIN_Start:
                 Userdata.close()
 
         self.CreateDB(DBNAME="LOG")
-        self.CreateDB(DBNAME="USER_LOG")
+        self.CreateDB(DBNAME="USER_RANK")
 
+    # DB 생성
     def CreateDB(self, DBNAME=""):
         if not os.path.exists(f"./DB/{DBNAME}"):
             with open(f"./DB/{DBNAME}", "w") as LOG:
@@ -23,6 +24,7 @@ class MAIN_Start:
             DB.write(f"{HEAD}:{LOG},\n")
             DB.close()
 
+    # 회원 가입
     def SignUPAnswer(self):
         UserAnswer = input("Do you Want to Sign Up?\n>>")
         if UserAnswer == "YES" or UserAnswer == "Y":
@@ -46,6 +48,7 @@ class MAIN_Start:
                 Userdata.write(f"{UserName}:{password},\n")
                 Userdata.close()
 
+    # 회원 탈퇴
     def withdrawal(self):
         UserName = input("PLEASE WRITE YOUR WANT DELETE DELETE USERNAME\n>>")
 

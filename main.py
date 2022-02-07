@@ -3,6 +3,7 @@ from API.conversion import Conversion
 from API.timer import Timer
 from DB.Datainput import MAIN_Start
 from DB.UserConnecting import MAIN_CONNECT
+from DB.RANK import rankSCORE
 
 
 # Instance
@@ -11,6 +12,7 @@ cre = Create()
 con = Conversion()
 db = MAIN_Start()
 user = MAIN_CONNECT()
+rank = rankSCORE()
 
 
 # 실제 동작 페이지
