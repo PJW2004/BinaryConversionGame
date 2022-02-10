@@ -18,6 +18,7 @@ rank = rankSCORE()
 # 실제 동작 페이지
 def RUN(UserName=""):
     try:
+        # rank.user_SCORE()
         Answer = int(input("단계를 1~5중 선택 하시오. [종료를 원할시 아무 키나 누르면 됩니다.] \n>>"))
         timer.CountDown()
         start = timer.__Start__()
