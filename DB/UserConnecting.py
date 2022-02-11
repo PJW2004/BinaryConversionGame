@@ -11,7 +11,6 @@ class MAIN_CONNECT:
         self.Password = pwd
 
         with open("./DB/USER_DB", "r") as Userdata:
-
             # Connect 과정
             for data in Userdata:
                 if data.split(':')[0] == self.UserName and data.split(':')[1][:-2] == self.Password:
@@ -22,8 +21,6 @@ class MAIN_CONNECT:
                 elif self.__MissingCount > 2:
                     self.State = "Sign Up"
 
-                else:
-                    self.State = "SORRY INFORMATION DOSE NOT EXIST"
             self.__MissingCount += 1
 
             Userdata.close()

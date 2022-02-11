@@ -1,28 +1,19 @@
-import os.path
+from .db.database import Session, engine, Base
+from .db import models
+
+Base.metadata.create_all(engine)
 
 
 class MAIN_Start:
     def __init__(self):
         self.memory = ""
-        if not os.path.exists("./DB/USER_DB"):
-            with open("./DB/USER_DB", "w") as Userdata:
-                Userdata.write(f"admin:admin123,\n")
-                Userdata.close()
+        self.db = Session()
 
-        self.CreateDB(DBNAME="LOG")
-        self.CreateDB(DBNAME="USER_RANK")
-
-    # DB 생성
-    def CreateDB(self, DBNAME=""):
-        if not os.path.exists(f"./DB/{DBNAME}"):
-            with open(f"./DB/{DBNAME}", "w") as LOG:
-                LOG.write("")
-                LOG.close()
-
-    def InputLOG(self, DBNAME="", HEAD="", LOG=""):
-        with open(f"./DB/{DBNAME}", "a") as DB:
-            DB.write(f"{HEAD}:{LOG},\n")
-            DB.close()
+    def InputLOG(self, Step="", User="", LOG=""):
+        new_LOG = models.LOG(User=User, Step=Step, time=LOG)
+        self.db.add(new_LOG)
+        self.db.commit()
+        self.db.refresh(new_LOG)
 
     # 회원 가입
     def SignUPAnswer(self):

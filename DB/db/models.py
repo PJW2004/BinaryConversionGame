@@ -3,15 +3,15 @@ from sqlalchemy import Column, Integer, String
 
 
 class LOG(Base):
-    __tablename__ = "LOGs"
+    __tablename__ = "log"
 
-    User = Column(String, primary_key=True)
+    User = Column(String(50), primary_key=True)
     Step = Column(Integer)
     time = Column(Integer)
 
 
 class user_DB(Base):
-    __tablename__ = "user_DB"
+    __tablename__ = "user_db"
 
-    user = Column(String, primary_key=True)
-    pwd = Column(String)
+    user = Column(String(50), primary_key=True)
+    pwd = Column(String(100))
