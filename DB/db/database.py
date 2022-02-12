@@ -12,3 +12,12 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{postgres_id}:{postgres_pw}@{postgres_i
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
+
+List = list()
+conn = engine.connect()
+
+select_query = "select * from user_db"
+result = conn.execute(select_query)
+
+for _r in result:
+    List.append(_r)

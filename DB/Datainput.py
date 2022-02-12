@@ -1,13 +1,30 @@
-from .db.database import Session, engine, Base
+from .db.database import Session, engine, Base, List
 from .db import models
 
 Base.metadata.create_all(engine)
 
 
 class MAIN_Start:
+
     def __init__(self):
         self.memory = ""
         self.db = Session()
+        try:
+            self.CreateUser(user="admin", pwd="admin123")
+        except:
+            pass
+
+        print(List)
+
+    def CreateUser(self, user="", pwd=""):
+        try:
+            Defalt = models.user_DB(user=user, pwd=pwd)
+            self.db.add(Defalt)
+            self.db.commit()
+            self.db.refresh(Defalt)
+
+        except:
+            pass
 
     def InputLOG(self, Step="", User="", LOG=""):
         new_LOG = models.LOG(User=User, Step=Step, time=LOG)
@@ -28,16 +45,11 @@ class MAIN_Start:
 
     def SignUp(self):
         UserName = input("PLEASE WRITE YOUR USERNAME : ")
-
-        if UserName == "admin":
+        if UserName == List[0][0]:
             print("[경고] 'admin' 은 만들 수 없습니다.")
-
         else:
             password = input("PLEASE WRITE YOUR PASSWORD : ")
-
-            with open("./DB/USER_DB", "a") as Userdata:
-                Userdata.write(f"{UserName}:{password},\n")
-                Userdata.close()
+            self.CreateUser(user=UserName, pwd=password)
 
     # 회원 탈퇴
     def withdrawal(self):
