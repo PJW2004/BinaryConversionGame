@@ -60,18 +60,21 @@ class MAIN_Start:
             print("END THE PROGRAM")
 
         else:
-            with open("./DB/USER_DB", "r") as Userdata:
-                for data in Userdata:
-                    print(data)
-                    Name = data.split(":")[0]
-
-                    if Name != UserName:
-                        Password = data.split(":")[1][:-2]
-                        print(Password)
-                        self.memory += f"{Name}:{Password},\n"
-                Userdata.close()
-
-            self.reloading()
+            self.db.delete(UserName)
+            self.db.commit()
+            self.db.refresh(UserName)
+            # with open("./DB/USER_DB", "r") as Userdata:
+            #     for data in Userdata:
+            #         print(data)
+            #         Name = data.split(":")[0]
+            #
+            #         if Name != UserName:
+            #             Password = data.split(":")[1][:-2]
+            #             print(Password)
+            #             self.memory += f"{Name}:{Password},\n"
+            #     Userdata.close()
+            #
+            # self.reloading()
 
     def reloading(self):
         print(self.memory)
