@@ -1,4 +1,4 @@
-from .db.database import Session, engine, Base, List
+from .db.database import Session, engine, Base, List, iList
 from .db import models
 
 Base.metadata.create_all(engine)
@@ -15,19 +15,26 @@ class MAIN_Start:
             pass
 
         print(List)
+        print(iList)
 
     def CreateUser(self, user="", pwd=""):
+        new_user = models.user_DB(user=user, pwd=pwd)
+        self.db.add(new_user)
+
         try:
-            Defalt = models.user_DB(user=user, pwd=pwd)
-            self.db.add(Defalt)
             self.db.commit()
-            self.db.refresh(Defalt)
-
         except:
-            pass
+            self.db.rollback()
+            raise
+        finally:
+            self.db.close()
 
-    def InputLOG(self, Step="", User="", LOG=""):
-        new_LOG = models.LOG(User=User, Step=Step, time=LOG)
+    def InputLOG(self, Step="", User="", time=""):
+        try:
+            Index = iList + 1
+        except TypeError:
+            Index = 0
+        new_LOG = models.LOG(index=Index, User=User, Step=Step, time=time)
         self.db.add(new_LOG)
         self.db.commit()
         self.db.refresh(new_LOG)
@@ -38,18 +45,20 @@ class MAIN_Start:
         if UserAnswer == "YES" or UserAnswer == "Y":
             return "Y"
         elif UserAnswer == "NO" or UserAnswer == "N":
-            pass
+            return "N"
         else:
             print("Please answer is YES/Y OR NO/N\n")
-            self.SignUPAnswer()
+            return self.SignUPAnswer()
 
     def SignUp(self):
         UserName = input("PLEASE WRITE YOUR USERNAME : ")
         if UserName == List[0][0]:
             print("[경고] 'admin' 은 만들 수 없습니다.")
+            return self.SignUp()
         else:
             password = input("PLEASE WRITE YOUR PASSWORD : ")
             self.CreateUser(user=UserName, pwd=password)
+            return
 
     # 회원 탈퇴
     def withdrawal(self):
@@ -60,9 +69,10 @@ class MAIN_Start:
             print("END THE PROGRAM")
 
         else:
-            self.db.delete(UserName)
-            self.db.commit()
-            self.db.refresh(UserName)
+            conn = engine.connect()
+
+            select_query = f"delete from user_db where user = '{UserName}'"
+            conn.execute(select_query)
             # with open("./DB/USER_DB", "r") as Userdata:
             #     for data in Userdata:
             #         print(data)
@@ -76,10 +86,10 @@ class MAIN_Start:
             #
             # self.reloading()
 
-    def reloading(self):
-        print(self.memory)
-        with open("./DB/USER_DB", "w") as Userdata:
-            Userdata.write(self.memory)
-            Userdata.close()
-
-        print("DELETE SUCCESS")
+    # def reloading(self):
+    #     print(self.memory)
+    #     with open("./DB/USER_DB", "w") as Userdata:
+    #         Userdata.write(self.memory)
+    #         Userdata.close()
+    #
+    #     print("DELETE SUCCESS")

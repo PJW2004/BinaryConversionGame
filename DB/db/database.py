@@ -1,3 +1,4 @@
+import sqlalchemy.exc
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -14,10 +15,22 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 List = list()
+iList = list()
+
 conn = engine.connect()
+try:
+    select_query = "select * from user_db"
+    select_query2 = "select * from log"
+    result = conn.execute(select_query)
+    result2 = conn.execute(select_query2)
 
-select_query = "select * from user_db"
-result = conn.execute(select_query)
+    for _r in result:
+        List.append(_r)
 
-for _r in result:
-    List.append(_r)
+    cnt = 0
+
+    for _r in result2:
+        iList.append(_r[0])
+    iList = iList[-1]
+except sqlalchemy.exc.ProgrammingError:
+    pass

@@ -18,6 +18,7 @@ rank = rankSCORE()
 # 실제 동작 페이지
 def RUN(UserName=""):
     try:
+        db = MAIN_Start()
         # rank.user_SCORE()
         Answer = int(input("단계를 1~5중 선택 하시오. [종료를 원할시 아무 키나 누르면 됩니다.] \n>>"))
         timer.CountDown()
@@ -29,7 +30,7 @@ def RUN(UserName=""):
         end = timer.__End__()
         count = timer.Count(__Start__=start, __End__=end)
         print(f"종료\n모든 10진수를 변환 하였 습니다.\n총 걸린 시간 : {count}")
-        db.InputLOG(User=UserName, Step=Answer, LOG=count)
+        db.InputLOG(User=UserName, Step=Answer, time=count)
 
         RUN(UserName=UserName)
 
@@ -52,20 +53,20 @@ def CONNECT():
         user.CONNECT(User=UserName, pwd=Password)
 
         if user.State == "MAIN CONNECTING":
-            RUN(UserName=UserName)
+            return RUN(UserName=UserName)
 
         # 회원 가입
         elif user.State == "Sign Up":
             UserAnswer = db.SignUPAnswer()
             if UserAnswer == "Y":
                 db.SignUp()
-                CONNECT()
+                return CONNECT()
             else:
-                CONNECT()
+                return CONNECT()
 
         else:
             print("SORRY INFORMATION DOSE NOT EXIST\n")
-            CONNECT()
+            return CONNECT()
 
 
 # 동작 하는 곳

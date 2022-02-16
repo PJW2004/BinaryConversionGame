@@ -4,8 +4,8 @@ from sqlalchemy import Column, Integer, String
 
 class LOG(Base):
     __tablename__ = "log"
-
-    User = Column(String(50), primary_key=True)
+    index = Column(Integer, primary_key=True)
+    User = Column(String(50))
     Step = Column(Integer)
     time = Column(Integer)
 
@@ -13,5 +13,5 @@ class LOG(Base):
 class user_DB(Base):
     __tablename__ = "user_db"
 
-    user = Column(String(50), primary_key=True)
+    user = Column(String(50), primary_key=True, index=True)
     pwd = Column(String(100))
