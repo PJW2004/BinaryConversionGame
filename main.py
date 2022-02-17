@@ -60,6 +60,7 @@ def CONNECT():
             UserAnswer = db.SignUPAnswer()
             if UserAnswer == "Y":
                 db.SignUp()
+
                 return CONNECT()
             else:
                 return CONNECT()

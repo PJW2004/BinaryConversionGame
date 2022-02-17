@@ -17,8 +17,8 @@ class MAIN_Start:
         print(List)
         print(iList)
 
-    def CreateUser(self, user="", pwd=""):
-        new_user = models.user_DB(user=user, pwd=pwd)
+    def CreateUser(self, user="", pwd="", id=0):
+        new_user = models.user_DB(user=user, pwd=pwd, id=id)
         self.db.add(new_user)
 
         try:
@@ -57,7 +57,7 @@ class MAIN_Start:
             return self.SignUp()
         else:
             password = input("PLEASE WRITE YOUR PASSWORD : ")
-            self.CreateUser(user=UserName, pwd=password)
+            self.CreateUser(user=UserName, pwd=password, id=List[-1][-1]+1)
             return
 
     # 회원 탈퇴
@@ -69,27 +69,9 @@ class MAIN_Start:
             print("END THE PROGRAM")
 
         else:
-            conn = engine.connect()
+            Password = input("PL")
+            conn = engine.connect("PLEASE WRITE YOUR WANT DELETE DELETE PASSWORD\n>>")
 
             select_query = f"delete from user_db where user = '{UserName}'"
             conn.execute(select_query)
-            # with open("./DB/USER_DB", "r") as Userdata:
-            #     for data in Userdata:
-            #         print(data)
-            #         Name = data.split(":")[0]
-            #
-            #         if Name != UserName:
-            #             Password = data.split(":")[1][:-2]
-            #             print(Password)
-            #             self.memory += f"{Name}:{Password},\n"
-            #     Userdata.close()
-            #
-            # self.reloading()
-
-    # def reloading(self):
-    #     print(self.memory)
-    #     with open("./DB/USER_DB", "w") as Userdata:
-    #         Userdata.write(self.memory)
-    #         Userdata.close()
-    #
-    #     print("DELETE SUCCESS")
+            print("DELETE SUCCESS")

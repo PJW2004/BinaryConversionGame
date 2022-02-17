@@ -15,3 +15,4 @@ class user_DB(Base):
 
     user = Column(String(50), primary_key=True, index=True)
     pwd = Column(String(100))
+    id = Column(Integer)
