@@ -69,9 +69,9 @@ class MAIN_Start:
             print("END THE PROGRAM")
 
         else:
-            Password = input("PLEASE WRITE YOUR WANT DELETE DELETE USERNAME\n>>")
-            conn = engine.connect("PLEASE WRITE YOUR WANT DELETE DELETE PASSWORD\n>>")
+            Password = input("PLEASE WRITE YOUR WANT DELETE DELETE PASSWORD\n>>")
+            conn = engine.connect()
 
-            select_query = f"delete from user_db where user = '{Password}'"
+            select_query = f"delete from user_db where pwd = '{Password}'"
             conn.execute(select_query)
             print("DELETE SUCCESS")
