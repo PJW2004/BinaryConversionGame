@@ -18,7 +18,7 @@ class MAIN_Start:
         print(iList)
 
     def CreateUser(self, ID=0, user="", pwd=""):
-        new_user = models.user_DB(id=ID, user=user, pwd=pwd)
+        new_user = models.user_DB(id=ID, User_=user, pwd=pwd)
         self.db.add(new_user)
 
         try:
@@ -69,11 +69,12 @@ class MAIN_Start:
             print("END THE PROGRAM")
 
         else:
-            Password = input("PLEASE WRITE YOUR WANT DELETE DELETE PASSWORD\n>>")
-            conn = engine.connect()
 
-            select_query = f"delete from user_db where pwd = '{Password}'"
-            conn.execute(select_query)
+            conn = engine.connect()
+            for user in List:
+                if user[1] == UserName:
+                    select_query = f"delete from user_db where User_ = '{UserName}'"
+                    conn.execute(select_query)
 
             print("DELETE SUCCESS")
 

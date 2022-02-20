@@ -14,6 +14,6 @@ class user_DB(Base):
     __tablename__ = "user_db"
 
     id = Column(Integer, primary_key=True, index=True)
-    user = Column(String(50))
+    User_ = Column(String(50))
     pwd = Column(String(100))
 
