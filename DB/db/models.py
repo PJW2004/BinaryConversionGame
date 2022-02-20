@@ -13,6 +13,7 @@ class LOG(Base):
 class user_DB(Base):
     __tablename__ = "user_db"
 
-    user = Column(String(50), primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
+    user = Column(String(50))
     pwd = Column(String(100))
-    id = Column(Integer)
+

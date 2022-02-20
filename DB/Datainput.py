@@ -17,8 +17,8 @@ class MAIN_Start:
         print(List)
         print(iList)
 
-    def CreateUser(self, user="", pwd="", id=0):
-        new_user = models.user_DB(user=user, pwd=pwd, id=id)
+    def CreateUser(self, ID=0, user="", pwd=""):
+        new_user = models.user_DB(id=ID, user=user, pwd=pwd)
         self.db.add(new_user)
 
         try:
@@ -57,7 +57,7 @@ class MAIN_Start:
             return self.SignUp()
         else:
             password = input("PLEASE WRITE YOUR PASSWORD : ")
-            self.CreateUser(user=UserName, pwd=password, id=List[-1][-1]+1)
+            self.CreateUser(ID=List[-1][0]+1, user=UserName, pwd=password)
             return
 
     # 회원 탈퇴
@@ -74,4 +74,6 @@ class MAIN_Start:
 
             select_query = f"delete from user_db where pwd = '{Password}'"
             conn.execute(select_query)
+
             print("DELETE SUCCESS")
+

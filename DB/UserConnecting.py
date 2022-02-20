@@ -14,7 +14,7 @@ class MAIN_CONNECT:
         self.Password = pwd
 
         for data in List:
-            if data[0] == self.UserName and data[1] == self.Password:
+            if data[1] == self.UserName and data[2] == self.Password:
                 print("MAIN CONNECTING")
                 self.State = "MAIN CONNECTING"
                 self.__MissingCount = 0

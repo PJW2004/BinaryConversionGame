@@ -32,7 +32,10 @@ try:
 
         for _r in result2:
             iList.append(_r[0])
-        iList = iList[-1]
+        try:
+            iList = iList[-1]
+        except IndexError:
+            pass
     except sqlalchemy.exc.ProgrammingError:
         pass
 except sqlalchemy.exc.OperationalError:
