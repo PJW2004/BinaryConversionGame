@@ -18,7 +18,7 @@ class MAIN_Start:
         print(iList)
 
     def CreateUser(self, ID=0, user="", pwd=""):
-        new_user = models.user_DB(id=ID, User_=user, pwd=pwd)
+        new_user = models.user_DB(id=ID, gameuser=user, pwd=pwd)
         self.db.add(new_user)
 
         try:
@@ -73,7 +73,7 @@ class MAIN_Start:
             conn = engine.connect()
             for user in List:
                 if user[1] == UserName:
-                    select_query = f"delete from user_db where User_ = '{UserName}'"
+                    select_query = f"delete from user_db where gameuser = '{UserName}'"
                     conn.execute(select_query)
 
             print("DELETE SUCCESS")
