@@ -72,5 +72,4 @@ def CONNECT():
 
 # 동작 하는 곳
 if __name__ == '__main__':
-
     CONNECT()
