@@ -4,7 +4,6 @@ from API.timer import Timer
 from DB.Datainput import MAIN_Start
 from DB.UserConnecting import MAIN_CONNECT
 from DB.RANK import rankSCORE
-import sqlalchemy.exc
 
 
 # Instance
