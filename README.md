@@ -1,19 +1,10 @@
-# 2진 변환 테스트 게임
+# Binary Conversion Game
 
-### 환경
-- DB : postgreSQL
-- Python : v3.8
+1. Decimal
+2. Hexadecimal
+3. Binary
 
-## Docker starting
-```shell
-% docekr-compose up -d
-```
-#### 난이도 별 설명
-- 1단계 : 10진수 0~100까지의 숫자를 2진수로 변환 하면 됩니다.
-- 2단계 : 10진수 0~1000까지의 숫자를 2진수로 변환 하면 됩니다.
-- 3단계 : 2진수 0~1100100까지의 숫자를 10진수로 변환 하면 됩니다.
-
-#### 앞으로 추가 할 내용
-- 로그 남기는 기능 <-- 여기에다 Multithead넣어야징
-- 순위 남기는 기능
-- bool 대수 문제 추가
+## Develop Environment
+||Version|
+|-|-|
+|PYTHON|3.8|

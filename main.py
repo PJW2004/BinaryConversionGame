@@ -1,75 +1,56 @@
-from API.create import Create
-from API.conversion import Conversion
-from API.timer import Timer
-from DB.Datainput import MAIN_Start
-from DB.UserConnecting import MAIN_CONNECT
-from DB.RANK import rankSCORE
+import random
+import getopt
+import sys
 
+def random_decimal(max_num: int = 10):
+    """
+    decimal data from random choice
+    """
+    return random.choice(range(max_num))
 
-# Instance
-timer = Timer()
-cre = Create()
-con = Conversion()
-db = MAIN_Start()
-user = MAIN_CONNECT()
-rank = rankSCORE()
+def running(max_num: int, level: str, running_range: int):
+    print(random_decimal(max_num))
 
+if __name__ == "__main__":
+    USAGE = """\
+Usage: main.py [options] type
 
-# 실제 동작 페이지
-def RUN(UserName=""):
+Options:
+    --help      / -h       -- print this message and exit
+    --max_num   / -m       -- maximum number
+    --level     / -l       -- binary or hexadecimal
+    --range     / -r       -- running range
+"""
+
+    def usage(code, msg=''):
+        print(USAGE)
+        if msg: print(msg)
+        sys.exit(code)
+
     try:
-        db = MAIN_Start()
-        # rank.user_SCORE()
-        Answer = int(input("단계를 1~5중 선택 하시오. [종료를 원할시 아무 키나 누르면 됩니다.] \n>>"))
-        timer.CountDown()
-        start = timer.__Start__()
-        for i in range(10):
-            Decimal_Data = cre.Create_Decimal(cre.Choose_Step(User_Answer=Answer), User_Answer=Answer)
-            print(Decimal_Data)
-            con.test(con.Decimal_To_Binary(Decimal_Data, User_Answer=Answer))
-        end = timer.__End__()
-        count = timer.Count(__Start__=start, __End__=end)
-        print(f"종료\n모든 10진수를 변환 하였 습니다.\n총 걸린 시간 : {count}")
-        db.InputLOG(User=UserName, Step=Answer, time=count)
+        opts, args = getopt.getopt(sys.argv[1:], "hm:l:r:", ["help", "max_num=", "level=", "range="])
+    except getopt.error as msg:
+        usage(1, msg)
 
-        RUN(UserName=UserName)
+    level         = "binary"
+    max_num       = 1
+    running_range = 0
 
-    except ValueError:
-        print("Program 을 종료 합니다.")
+    try:
+        for opt, arg in opts:
+            if opt in ("-h", "--help"):
+                usage(0)
+            elif opt in ("-l", "--level"):
+                level = arg
+            elif opt in ("-m", "--max_num"):
+                max_num = int(arg)
+            elif opt in ("-r", "--range"):
+                running_range = int(arg)
+    except Exception as e:
+        usage(1, f"{e.__class__.__module__}.{e.__class__.__name__} : {e.args[0]}")
 
+    assert isinstance(max_num, int), usage(1, "max_num is not integer")
+    assert isinstance(level, str), usage(1, "level is not string")
+    assert level in {"binary", "hexadecimal"}, usage(1, "level is not in type binary or hexadecimal")
 
-# user connect 과정
-def CONNECT():
-    UserName = input("[IF YOU WANT DELETE YOUR USERID PLEASE WRITE KEY 'A']\nUserName : ")
-
-    # USERID 삭제
-    if UserName == "A":
-        db.withdrawal()
-
-    # USERID 입력창
-    else:
-        Password = input("Password : ")
-
-        user.CONNECT(User=UserName, pwd=Password)
-
-        if user.State == "MAIN CONNECTING":
-            return RUN(UserName=UserName)
-
-        # 회원 가입
-        elif user.State == "Sign Up":
-            UserAnswer = db.SignUPAnswer()
-            if UserAnswer == "Y":
-                db.SignUp()
-
-                return CONNECT()
-            else:
-                return CONNECT()
-
-        else:
-            print("SORRY INFORMATION DOSE NOT EXIST\n")
-            return CONNECT()
-
-
-# 동작 하는 곳
-if __name__ == '__main__':
-    CONNECT()
+    running(max_num, level, running_range)
